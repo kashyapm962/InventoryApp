@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Profile</title>
+    </head>
+    <body>
+        Welcome <%= data.Name %>
+
+        <a href='/devices?emp=<%= data.EmpID %>'>My Devices</a>
+        <br>
+        <a href='/newdevice?emp=<%= data.EmpID %>'>New Device</a>
+    </body>
+</html>

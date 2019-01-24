@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title> Need a new device.</title>
+    </head>
+    <body>
+        <form action="/newdevice?emp=<%= emp %>" method="POST">
+            Select Device:<br>
+            <% for(var i =0;i < deviceList.length;i++){ %>
+                <input type="radio" name="DeviceName" value="<%= deviceList[i] %>" > <%= deviceList[i] %><br>
+            <% } %>
+            Return Date:<br>
+            <input type="text" name="ReturnDate"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
