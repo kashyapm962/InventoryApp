@@ -1,15 +1,49 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <Title>Add New Devices</Title>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     </head>
+
     <body>
-        <h1>Add New devices to the database.</h1>
-        <form action="/addnewdevice" method="POST">
-            Device ID:<br>
-            <input type="text" name="DeviceID"><br>
-            Device Name:<br>
-            <input type="text" name="DeviceName"><br>
-            <input type="submit" value="Submit">
-        </form>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <section>
+            <div class="text-center">
+                    <%= typeof msg != 'undefined' ? msg : '' %>
+            </div>
+            <div class="container">
+                <form action="/addnewdevice" method="POST" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label for="inputdevicename" class="col-sm-4 col-form-label">Device Name</label>
+                        <div class="col-sm-8">
+                        <input type="text" class="form-control" name="DeviceName" placeholder="Enter device name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputdeviceid" class="col-sm-4 col-form-label">Device ID</label>
+                        <div class="col-sm-8">
+                        <input type="text" class="form-control" name="DeviceID" placeholder="Enter Device ID" required>
+                        </div>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="files" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                
+        </section>
     </body>
+    
 </html>

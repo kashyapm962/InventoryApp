@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">logout</a>
+                    </li>
+                </ul>
+            </nav>
+        <section>
+                    <form action="/issuenewdevice" method="POST">
+                        <div class="form-row align-items-center">
+                          <div class="col-sm-3 my-1"></div>
+                          <div class="col-sm-4 my-1">
+                            <label class="sr-only" for="inlineFormInputName">Search</label>
+                            <input type="text" class="form-control" name="search" placeholder="Search your device" required>
+                          </div>                         
+                          <div class="col-sm-1 my-1">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                          </div>
+                        </div>
+                    </form>
+            
+                <div class="row">
+                        <% for (var i =0; i < data.length; i++){%>
+                        <div class="card cards-device" style="width: 18rem;">
+                            <img src="<%= data[i].filePath %>" class="card-img-top" alt="device image">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= data[i].DeviceName%></h5>
+                                <%if (data[i].Status === false) { %>
+                                    <a href="/available?deviceid=<%= data[i].DeviceID%>" class="btn btn-primary">Available</a>
+                                <% } %>
+                                <%if (data[i].Status === true) { %>
+                                    <a href="/notavailable?deviceid=<%= data[i].DeviceID%>" class="btn btn-primary">Not Available</a>
+                                <% } %>
+                            </div>
+                        </div>
+                        <%}%>
+                </div>
+            
+        </section>
+    </body>
+</html>

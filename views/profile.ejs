@@ -1,12 +1,63 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Profile</title>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     </head>
-    <body>
-        Welcome <%= data.Name %>
 
-        <a href='/devices?emp=<%= data.EmpID %>'>My Devices</a>
-        <br>
-        <a href='/newdevice?emp=<%= data.EmpID %>'>New Device</a>
+    <body>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">logout</a>
+                    </li>
+                </ul>
+            </nav>
+        <div class="row">
+                <div class="col-sm-3">
+                    <div class="card card-left">
+                        <img src="./assets/images/profile.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= data.name%></h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><%= data.email%></li>
+                                <li class="list-group-item"><%= data.mob%></li>
+                            </ul>
+                            <a href="/editprofile" class="btn btn-primary">Edit Information</a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 cards-right">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Need a device</h5>
+                      <p class="card-text">To get a new device from inventory please click below.</p>
+                      <a href="/issuenewdevice" class="btn btn-primary">New device</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 cards-right">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Return devices</h5>
+                      <p class="card-text">To return a device or to see the devices issued to you click below.</p>
+                      <a href="/mydevices" class="btn btn-primary">My devices</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+
     </body>
 </html>

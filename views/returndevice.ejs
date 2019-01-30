@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">logout</a>
+                    </li>
+                </ul>
+        </nav>
+        <section>
+                    <form action="/mydevices?deviceid=<%= data%>" method="POST">
+                        <div class="form-row align-items-center">
+                          <div class="col-sm-3 my-1"></div>
+                          <div class="col-sm-4 my-1">
+                            <label class="sr-only" for="inlineFormInputName">Enter return date</label>
+                            <input type="text" class="form-control" name="ReturnDate" placeholder="Enter device return date(YYYY-MM-DD)"
+                            pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+                          </div>                         
+                          <div class="col-sm-1 my-1">
+                            <button type="submit" class="btn btn-primary">Issue</button>
+                          </div>
+                        </div>
+                    </form>
+        </section>
+        </body>
+        </html>

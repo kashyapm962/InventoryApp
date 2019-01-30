@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <nav>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/profile">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">logout</a>
+                </li>
+            </ul>
+        </nav>
+        <section>
+            <%= typeof msg != 'undefined' ? msg : '' %>
+            <div class="row">
+            <% for (var i = 0; i < data.length; i++){%>
+                
+                    <div class="card cards-device" style="width: 18rem;">
+                        <img src="<%= data[i].filePath %>" class="card-img-top" alt="<%= data[i].DeviceName %>">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= data[i].DeviceName %></h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Issue date : <%= data[i].IssuedOn.toDateString() %></li>
+                          <li class="list-group-item">Return date: <%= data[i].ReturnDate.toDateString() %></li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="/returndevice?deviceid=<%= data[i].DeviceID %>" class="btn btn-primary">Return Device</a>
+                        </div>
+                    </div>
+                
+            <%}%>
+        </div>
+        </section>
+    </body>
+</html>

@@ -1,9 +1,31 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Device Not Available.</title>
+        <title>Welcome | Inventory</title>
+        <link rel="stylesheet" type="text/css" href="./assets/inventory.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     </head>
+
     <body>
-        <h1>Device you are looking for is not Available. Try asking these people to return the device.</h1>
-        <a href='/issueddevices'>Issued To</a>
+        <header>
+            <div class="row">
+                <div class="logo col-sm-12">Welcome to CoE Inventory</div>
+            </div>
+        </header>
+        <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">logout</a>
+                    </li>
+                </ul>
+            </nav>
+        <section>
+            <b>The device you are looking for is issued to <%= data.name%>( Email ID: <%= data.email%>, Mob no.: <%= data.mob%> ). Try requesting the person to return the device.</b><br>
+            <a href='/profile'>Return Home</a>
+        </section>
     </body>
 </html>
