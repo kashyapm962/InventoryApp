@@ -7,7 +7,11 @@ var bcrypt = require('bcryptjs');
 module.exports = function(app){
     // get request on index page.
     app.get('',function(req, res){
+      if (req.session && req.session.userId){
+        res.redirect('/profile');
+      } else {
         res.render('index');
+      } 
     });
 
     app.post('/signup', urlencodedParser, function(req, res){
@@ -22,7 +26,7 @@ module.exports = function(app){
             req.body.passwordConf = true;
             users(req.body).save(function (err) {
               if (err) {
-                throw err;
+                res.render('somethingwentwrong');
               } else {
                 res.redirect('/login');
               }
@@ -34,7 +38,11 @@ module.exports = function(app){
 
     //login Page
     app.get('/login', function(req, res){
+      if (req.session && req.session.userId){
+        res.redirect('/profile');
+      } else {
         res.render('login');
+      }
     });
 
     app.post('/authenticate', urlencodedParser, function(req, res){
@@ -57,7 +65,7 @@ module.exports = function(app){
     app.get('/profile', urlencodedParser, requiresLogin, function(req, res){
         users.findOne({_id: req.session.userId}, function(err, user){
           if (err){
-            throw err;
+            res.render('somethingwentwrong');
           }
           res.render('profile',{data: user});
         });
@@ -80,7 +88,7 @@ module.exports = function(app){
     app.get('/editprofile',requiresLogin, function(req, res){
       users.findOne({_id: req.session.userId}, function(err, user){
         if (err){
-          throw err;
+          res.render('somethingwentwrong');
         }
         res.render('editprofile',{data: user});
       });
@@ -89,7 +97,7 @@ module.exports = function(app){
     app.post('/editprofile', urlencodedParser, requiresLogin, function(req, res){
       users.findOne({_id: req.session.userId}, function(err, user){
         if (err) {
-          throw err;
+          res.render('somethingwentwrong');
         }
         users.authenticate(user.email, req.body.password, function(err, user){
           if (err) {
@@ -104,7 +112,7 @@ module.exports = function(app){
             }else {
               users.updateOne({_id: req.session.userId},{email: req.body.email, mob: req.body.mob}, function(err, user){
                 if (err) {
-                  throw err;
+                  res.render('somethingwentwrong');
                 }
                 res.redirect('/editprofile');
               });
@@ -119,7 +127,7 @@ module.exports = function(app){
     app.get('/changepassword',requiresLogin, function(req, res){
       users.findOne({_id: req.session.userId}, function(err, user){
         if (err){
-          throw err;
+          res.render('somethingwentwrong');
         }
         res.render('changepassword',{data: user});
       });
@@ -150,7 +158,7 @@ module.exports = function(app){
                 }else {
                   users.updateOne({_id: req.session.userId},{password: req.body.newpassword}, function(err, user){
                     if (err) {
-                      throw err;
+                      res.render('somethingwentwrong');
                     }
                     res.redirect('/logout');
                   });

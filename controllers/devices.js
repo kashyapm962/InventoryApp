@@ -54,7 +54,7 @@ module.exports = function(app){
     // get request for issue new device page
     app.get('/issuenewdevice',requiresLogin, function(req, res){
         devices.find(function(err, uniqueDevices){
-            if (err) throw err;
+            if (err) res.render('somethingwentwrong');
             res.render('issuenewdevice', {data:uniqueDevices});
         });
     });
@@ -62,7 +62,7 @@ module.exports = function(app){
     // post request for search feature
     app.post('/issuenewdevice',urlencodedParser, requiresLogin, function(req, res){
         devices.find({DeviceName: RegExp(req.body.search,'i')}, function(err, uniqueDevices){
-            if (err) throw err;
+            if (err) res.render('somethingwentwrong');
             res.render('issuenewdevice', {data:uniqueDevices});
         });
     });
@@ -78,15 +78,21 @@ module.exports = function(app){
             findOne({DeviceID: req.query.deviceid}).
             populate('Emp').
             exec (function (err, device){
-                if (err) throw err;
+                if (err) res.render('somethingwentwrong');
                 res.render('devicenotavailable', {data: device.Emp});
             });
     });
 
     // to show all the devices to the user.
-    app.get('/mydevices', function(req, res){
+    app.get('/mydevices', requiresLogin, function(req, res){
         devices.find({Emp: req.session.userId}, function(err, device){
-            res.render('mydevices', {data: device});
+            if (!device[0]) {
+                var msg = "No devices are issued to you."
+                res.render('mydevices', {data: device, msg: msg});
+            } else {
+                var msg = "devices issued to you are."
+                res.render('mydevices', {data: device, msg: msg});
+            }
         });
                 
     });
@@ -94,18 +100,18 @@ module.exports = function(app){
     //to add new devices which have been issued to the user
     app.post('/mydevices', urlencodedParser, requiresLogin, function(req, res){
         users.findOne({_id: req.session.userId}, function(err, user){
-            if (err) throw err;
-            if (req.body.ReturnDate){
+            if (err) res.render('somethingwentwrong');
+            if (req.body.ReturnDate && (new Date(req.body.ReturnDate) > Date.now())){
                 devices.findOneAndUpdate({DeviceID: req.query.deviceid},
                     {IssuedOn: Date.now(), ReturnDate: req.body.ReturnDate, Status: true, Emp: user },
                     function(err){
                         if (err){
-                            throw err;
+                            res.render('somethingwentwrong');
                         }
                         res.redirect('/mydevices');
                 });
             }else {
-
+                res.render('returndevice',{data :req.query.deviceid, msg: "Please enter a valid date."});
             }
             
         });        
@@ -118,7 +124,6 @@ module.exports = function(app){
 
     //post request to add new devices in the inventory
     app.post('/addnewdevice', urlencodedParser, function(req, res){
-        var filename;
         upload(req, res, (err) => {
             if (err){ 
                 res.render('addnewdevice', { msg: err})
@@ -140,9 +145,13 @@ module.exports = function(app){
             {ReturnDate: Date.now(), Status: false, Emp: null },
             function(err){
                 if (err){
-                    throw err;
+                    res.render('somethingwentwrong');
                 }
                 res.redirect('/mydevices');      
         });      
     });
+
+    app.use(function (req, res, next) {
+        res.status(404).render('notfound');
+      })
 }

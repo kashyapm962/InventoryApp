@@ -23,6 +23,9 @@
                     </li>
                 </ul>
         </nav>
+        <div class="text-center">
+            <%= typeof msg != 'undefined' ? msg : '' %>
+    </div>
         <section>
                     <form action="/mydevices?deviceid=<%= data%>" method="POST">
                         <div class="form-row align-items-center">

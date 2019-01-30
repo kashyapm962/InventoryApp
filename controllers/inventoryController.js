@@ -15,6 +15,7 @@ module.exports = function(app){
     //Fire the devices controller.
     devices(app);
 
+    
 };
 
 
